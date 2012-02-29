@@ -44,19 +44,21 @@ public class TTGetter {
         			
         	ArrayList<Location> wantedlocations= new ArrayList<Location>();
         	
-        	int listwanted[] = {
-        			1,			23424748, 23424768, 23424775, 23424803, 23424829, 
-        			23424853, 	23424975, 23424977, 23424969, 23424909, 23424800,
-        			23424819, 	23424782, 23424942, 23424934, 23424848, 23424747,
-        			23424908, 	23424954
-        	};
+//        	int listwanted[] = {
+//        			1,			23424748, 23424768, 23424775, 23424803, 23424829, 
+//        			23424853, 	23424975, 23424977, 23424969, 23424909, 23424800,
+//        			23424819, 	23424782, 23424942, 23424934, 23424848, 23424747,
+//        			23424908, 	23424954
+//        	};
+        	
+        	int listwanted[] = {1};
         	
             for (Location l : locations)
             {
             	int i=0;
-            	while(i<19 && l.getWoeid() != listwanted[i])
+            	while(i<1 && l.getWoeid() != listwanted[i])
             		++i;
-            	if(i <19)
+            	if(i <1)
             		wantedlocations.add(l);
             }
 
