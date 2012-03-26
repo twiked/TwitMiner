@@ -33,7 +33,6 @@ public class TTGetter {
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
-        
         while (true)
         {
         try{
@@ -44,24 +43,31 @@ public class TTGetter {
         			
         	ArrayList<Location> wantedlocations= new ArrayList<Location>();
         	
-//        	int listwanted[] = {
-//        			1,			23424748, 23424768, 23424775, 23424803, 23424829, 
-//        			23424853, 	23424975, 23424977, 23424969, 23424909, 23424800,
-//        			23424819, 	23424782, 23424942, 23424934, 23424848, 23424747,
-//        			23424908, 	23424954
-//        	};
+        	int listwanted[] = {
+        			1,			23424748, 23424768, 23424775, 23424803, 23424829, 
+        			23424853, 	23424975, 23424977, 23424969, 23424909, 23424800,
+        			23424819, 	23424782, 23424942, 23424934, 23424848, 23424747,
+        			23424908, 	23424954
+        	};
         	
-        	int listwanted[] = {1};
+//        	int listwanted[] = {1};
         	
             for (Location l : locations)
             {
             	int i=0;
-            	while(i<1 && l.getWoeid() != listwanted[i])
+            	while(i<20 && l.getWoeid() != listwanted[i])
             		++i;
-            	if(i <1)
+            	if(i<20)
             		wantedlocations.add(l);
             }
-
+            
+            
+            try {
+    			fos = new BufferedOutputStream(new FileOutputStream(new File("trends.xml"), true));
+    		} catch (FileNotFoundException e1) {
+    			e1.printStackTrace();
+    		}
+            
         	for (Location i : wantedlocations)
         	{
         		try{
@@ -90,7 +96,7 @@ public class TTGetter {
             System.out.println("TwitterException");
             System.exit(-1);
         }
-        System.out.println("COOl");
+        fos.close();
         Thread.sleep(300000);
     }
 	}
