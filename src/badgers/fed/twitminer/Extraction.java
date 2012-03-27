@@ -27,7 +27,7 @@ public class Extraction {
 		
 		try {
 		
-		BufferedInputStream i = new BufferedInputStream(new FileInputStream(new File("./trends.csv")));
+		BufferedInputStream i = new BufferedInputStream(new FileInputStream(new File("./trans_50.out.txt")));
 		BufferedWriter o = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("trans"))));
 		
 		byte[] buf = new byte[1];
@@ -58,6 +58,7 @@ public class Extraction {
 					i.read(buf);
 				}
 				//Sauvegarde (si besoin) dans l'Arraylist, et écrit l'index de l'item dans le fichier transactions
+				//System.out.println(new String(TTbuffer));
 				o.write(save(new String(TTbuffer)) + " ");
 			} while(!Arrays.equals(newline, buf));
 			o.write('\n');
