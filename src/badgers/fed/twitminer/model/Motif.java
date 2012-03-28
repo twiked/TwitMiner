@@ -9,7 +9,7 @@ import java.util.ListIterator;
 @SuppressWarnings("unchecked")
 public class Motif implements List<Integer>{
 	private List<Integer> motif;
-	private int freq;
+	private float freq;
 	
 	public Motif(int freq)
 	{
@@ -17,16 +17,27 @@ public class Motif implements List<Integer>{
 		this.setMotif(new ArrayList<Integer>());
 	}
 	
+	public Motif(Motif b) {
+		this.freq = b.getFreq();
+		this.motif = new ArrayList<Integer>();
+		this.motif.addAll(b.getMotif());
+	}
+
+	@Override
+	public String toString() {
+		return "Motif [motif=" + motif + ", freq=" + freq + "]";
+	}
+
 	public List<Integer> getMotif() {
 		return motif;
 	}
 	public void setMotif(List<Integer> motif) {
 		this.motif = motif;
 	}
-	public int getFreq() {
+	public float getFreq() {
 		return freq;
 	}
-	public void setFreq(int freq) {
+	public void setFreq(float freq) {
 		this.freq = freq;
 	}
 	public void addItem(int item) {
@@ -149,5 +160,22 @@ public class Motif implements List<Integer>{
 		//La fréquence devrait être obtenable
 		return motif.subList(fromIndex, toIndex);
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Float.floatToIntBits(freq);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this.size() != ((Motif) obj).size())
+			return false;
+		System.out.println("COOSDQDL");
+		return (this.getMotif()).equals(((Motif) obj).getMotif());
+	}
+	
 	
 }

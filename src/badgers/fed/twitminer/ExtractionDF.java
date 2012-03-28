@@ -17,14 +17,14 @@ import badgers.fed.twitminer.model.Motif;
 
 
 public class ExtractionDF {
-	private HashMap<List<Integer>, Integer> globale;
+	private HashMap<Motif, Motif> globale;
 	private List <Motif> glob;
 	BufferedWriter o;
 	BufferedReader i;
 	private int minConf;
 	
 	public static void main(String[] args) {
-		new ExtractionDF(3.);
+		new ExtractionDF(0.3);
 	}
 	public ExtractionDF(double seuil) {
 		try {
@@ -37,6 +37,7 @@ public class ExtractionDF {
 		
 		//Hashmap contenant toutes les transactions, associées à leur fréquence
 		glob = new ArrayList <Motif>();
+		globale = new HashMap<Motif, Motif>();
 		
 		char[] buf = new char[1];
 		try {
@@ -72,14 +73,56 @@ public class ExtractionDF {
 				}
 				glob.add(m);
 			}
-			int count = 0;
-			//Comparaison des sur-ensembles
-			for(Motif a : glob)
-				for(Motif b : glob)
-					if (b.containsAll(a))
-						if((double)((double)b.getFreq()/(double)a.getFreq()) > (double)0.1)
-							System.out.println(b.getFreq()/a.getFreq());
-			System.out.println(count);
+			final int globSize = glob.size();
+			System.out.println("Glob Size :" +globSize);
+			
+			//Pour chaque motif fréquent
+			for(int ai = 0; ai < glob.size(); ++ai) {
+				Motif a = new Motif(glob.get(ai));
+				int bi = ai;
+				
+				//Rechercher un sur-ensemble
+				while(bi < globSize)
+				{
+					//Un sur-motif potentiel
+					Motif c = glob.get(bi);
+					//Bizzarrerie Java ...
+					Motif d = null;
+					
+					if (c.containsAll(a)) {
+						
+						//Sur-ensemble trouvé, on le copie pour pouvoir supprimer l'implicateur
+						 d = new Motif(c);
+					
+					
+						//Suppression directe dans le sur-ensemble, car inutile
+						//pour le calcul de la confiance
+						d.removeAll(c);
+						
+						//Recherche de la fréquence de ce sous-sur-ensemble,
+						//e contenant ce dernier
+						
+						try {
+							Thread.sleep(300);
+						} catch (InterruptedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						for(Motif e : glob.subList(0, bi)){
+							if(e.equals(d)) {
+								System.out.println(e.getFreq()/a.getFreq());
+								if(e.getFreq()/a.getFreq() > minConf)
+									globale.put(a,e);
+	//								System.out.println(a.toString() + " implique " + e.toString());
+								break;
+							}			
+						}
+						
+					}
+					bi++;
+				}
+			}
+					System.out.println(globale.size());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
