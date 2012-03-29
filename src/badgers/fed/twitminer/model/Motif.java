@@ -173,8 +173,7 @@ public class Motif implements List<Integer>{
 	public boolean equals(Object obj) {
 		if (this.size() != ((Motif) obj).size())
 			return false;
-		System.out.println("COOSDQDL");
-		return (this.getMotif()).equals(((Motif) obj).getMotif());
+		return (this.getMotif()).containsAll(((Motif) obj).getMotif());
 	}
 	
 	

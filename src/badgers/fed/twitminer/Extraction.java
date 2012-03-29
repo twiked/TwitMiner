@@ -27,7 +27,7 @@ public class Extraction {
 		
 		try {
 		
-		BufferedInputStream i = new BufferedInputStream(new FileInputStream(new File("./trans_50.out.txt")));
+		BufferedInputStream i = new BufferedInputStream(new FileInputStream(new File("./trends.csv")));
 		BufferedWriter o = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("trans"))));
 		
 		byte[] buf = new byte[1];
