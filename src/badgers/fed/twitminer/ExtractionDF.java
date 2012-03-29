@@ -23,7 +23,7 @@ public class ExtractionDF {
 	private int minConf;
 
 	public static void main(String[] args) {
-		new ExtractionDF(0.6);
+		new ExtractionDF(0.8);
 	}
 
 	public ExtractionDF(double seuil) {
@@ -31,7 +31,7 @@ public class ExtractionDF {
 			o = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
 					new File("./dfs"))));
 			i = new BufferedReader(new InputStreamReader(new FileInputStream(
-					new File("./resultat"))));
+					new File("./trans_50.out.txt"))));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,12 +77,12 @@ public class ExtractionDF {
 				glob.add(m);
 			}
 			final int globSize = glob.size();
-
+			System.out.println(globSize);
 			// Pour chaque motif Y fréquent
 			for (int ai = globSize - 1; ai >= 0; --ai) {
 
 				Motif y = new Motif(glob.get(ai));
-				int bi = ai - 2;
+				int bi = ai - 10;
 
 				// Rechercher un sous-ensemble X
 				while (bi >= 0) {
@@ -92,10 +92,12 @@ public class ExtractionDF {
 					// Tel que X c Y
 					if (y.containsAll(x)) {
 						if (y.getFreq() / x.getFreq() >= seuil) {
-
+							//System.out.println(y.toString() + "#" + x.toString());
 							// Z = Y - X (motif impliqué)
 							Motif z = new Motif(y);
 							z.removeAll(x);
+							System.out.println(x.getMotif().toString() + " implique " + z.getMotif().toString() + "(" + y.getFreq() / x.getFreq() + ")");
+							
 							globale.put(x, z);
 						}
 					}
