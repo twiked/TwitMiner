@@ -1,5 +1,7 @@
 package badgers.fed.twitminer;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,6 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,20 +24,20 @@ public class ExtractionDF {
 	private List<Motif> glob;
 	BufferedWriter o;
 	BufferedReader i;
-	private int minConf;
+	private double minConf;
 
 	public static void main(String[] args) {
-		new ExtractionDF(0.8);
+		new ExtractionDF(0.3);
 	}
 
 	public ExtractionDF(double seuil) {
 		try {
+			this.minConf = seuil;
 			o = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
 					new File("./dfs"))));
 			i = new BufferedReader(new InputStreamReader(new FileInputStream(
-					new File("./trans_50.out.txt"))));
+					new File("./resultat"))));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -44,7 +48,6 @@ public class ExtractionDF {
 		try {
 			i.readLine();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -76,6 +79,8 @@ public class ExtractionDF {
 				}
 				glob.add(m);
 			}
+			i.close();
+
 			final int globSize = glob.size();
 			System.out.println(globSize);
 			// Pour chaque motif Y fréquent
@@ -91,23 +96,69 @@ public class ExtractionDF {
 
 					// Tel que X c Y
 					if (y.containsAll(x)) {
-						if (y.getFreq() / x.getFreq() >= seuil) {
-							//System.out.println(y.toString() + "#" + x.toString());
-							// Z = Y - X (motif impliqué)
+						if (y.getFreq() / x.getFreq() >= minConf) {
+							// System.out.println(y.toString() + "#" +
+							// x.toString());
+							// Z = Y - X (motif impliqué), attention la
+							// fréquence de z est donc la fréquence de y.
 							Motif z = new Motif(y);
 							z.removeAll(x);
-							System.out.println(x.getMotif().toString() + " implique " + z.getMotif().toString() + "(" + y.getFreq() / x.getFreq() + ")");
-							
+
 							globale.put(x, z);
 						}
 					}
 					--bi;
 				}
 			}
-			System.out.println(globale.size());
+			serializeDFMap();
+			
+			List<String> keyWords = deSerializeKeywords();
+			for (Motif x : globale.keySet()) {
+				Motif z = globale.get(x);
+				o.write(x.toString(keyWords) + " -implique- " + z.toString(keyWords) + "; ("
+						+ z.getFreq() / x.getFreq() + ")\n");
+			}
+			o.close();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	List<String> deSerializeKeywords() {
+		try {
+			ObjectInputStream keywordsSave = new ObjectInputStream(
+					new BufferedInputStream(new FileInputStream(new File(
+							"./keywordsmap"))));
+			List<String> l = (List<String>) keywordsSave.readObject();
+			keywordsSave.close();
+			return l;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private void serializeDFMap() {
+		ObjectOutputStream DFs;
+		try {
+			DFs = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File("./DFserialized"))));
+			DFs.writeObject(globale);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

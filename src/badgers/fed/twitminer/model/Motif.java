@@ -1,5 +1,6 @@
 package badgers.fed.twitminer.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -7,7 +8,11 @@ import java.util.List;
 import java.util.ListIterator;
 
 @SuppressWarnings("unchecked")
-public class Motif implements List<Integer>{
+public class Motif implements List<Integer>, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Integer> motif;
 	private float freq;
 	
@@ -27,7 +32,13 @@ public class Motif implements List<Integer>{
 	public String toString() {
 		return "Motif [motif=" + motif + ", freq=" + freq + "]";
 	}
-
+	public String toString(List<String> l) {
+		String motifLine = new String();
+		motifLine += l.get(motif.get(0)) + " ";
+		for (int i = 1; i < motif.size(); ++i)
+			motifLine += l.get(motif.get(i)) + " ";
+		return motifLine;
+	}
 	public List<Integer> getMotif() {
 		return motif;
 	}
