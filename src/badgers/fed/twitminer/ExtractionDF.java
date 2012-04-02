@@ -27,7 +27,7 @@ public class ExtractionDF {
 	private double minConf;
 
 	public static void main(String[] args) {
-		new ExtractionDF(0.3);
+		new ExtractionDF(0.6);
 	}
 
 	public ExtractionDF(double seuil) {
@@ -154,6 +154,7 @@ public class ExtractionDF {
 		try {
 			DFs = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File("./DFserialized"))));
 			DFs.writeObject(globale);
+			DFs.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

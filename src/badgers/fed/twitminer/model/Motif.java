@@ -34,9 +34,9 @@ public class Motif implements List<Integer>, Serializable{
 	}
 	public String toString(List<String> l) {
 		String motifLine = new String();
-		motifLine += l.get(motif.get(0)) + " ";
+		motifLine += l.get(motif.get(0));
 		for (int i = 1; i < motif.size(); ++i)
-			motifLine += l.get(motif.get(i)) + " ";
+			motifLine += ", " + l.get(motif.get(i));
 		return motifLine;
 	}
 	public List<Integer> getMotif() {
