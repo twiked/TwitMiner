@@ -57,9 +57,10 @@ public class Nettoyage {
 					int rangKeySyno = keywords.indexOf(dic.get(s));
 					if (rangKeySyno != -1)
 						synos.put(rangKeyToChange, rangKeySyno);
-					else
+					else {
 						keywords.add(dic.get(s));
 						synos.put(rangKeyToChange, dic.size() - 1);
+					}
 				}
 			}
 			//Remplacement effectif des synonymes
@@ -68,36 +69,42 @@ public class Nettoyage {
 			for(Motif m : dfs.keySet()) {
 				//Nettoyage des motifs implicateurs (X)
 				
-				List<Integer> l = m.getMotif();
+				//List<Integer> l = m.getMotif();
 				//Pour chaque mot-clé à remplacer potentiellement
 				for(int i : synos.keySet()) {
-					int rang = l.indexOf(i);
+					int rang = m.indexOf(i);
 					//Le mot clé doit être remplacé					
 					if(rang != -1) {
 						System.out.println(keywords.get(i) + " remplacé par " + keywords.get(synos.get((Object)i)));
-						l.set(rang, synos.get(i));
+						m.set(rang, synos.get(i));
 						//Suppression des autres occurences du mot-clé
-						l.remove((Object)i);
+						m.remove((Object)i);
 					}
-				}
 					
-				//Nettoyage des motifs impliqués (Y-X)
-				
-				List<Integer> ll = dfs.get(m).getMotif();
-				//Pour chaque mot-clé à remplacer potentiellement
-				for(int j : synos.keySet()) {
-					int rangg = ll.indexOf(j);
-					
-					if(rangg != -1) {
-						//Le mot clé doit être remplacé
-						System.out.println(keywords.get(rangg) + " remplacé par " + keywords.get(synos.get((Object)j)));
-						ll.set(rangg, synos.get(j));
-						//Suppression des autres occurences du mot-clé
-						ll.remove(ll);
-					}
+					Motif n = dfs.get(m);
+					int rangg = n.indexOf(i);
+					if(rangg != -1)
+						n.set(rangg, synos.get(i));
 				}
 			}
-			System.out.println("Taille finale de keywords : " + keywords.size());
+					
+//				//Nettoyage des motifs impliqués (Y-X)
+//				
+//				List<Integer> ll = dfs.get(m).getMotif();
+//				//Pour chaque mot-clé à remplacer potentiellement
+//				for(int j : synos.keySet()) {
+//					int rangg = ll.indexOf(j);
+//					
+//					if(rangg != -1) {
+//						//Le mot clé doit être remplacé
+//						System.out.println(keywords.get(rangg) + " remplacé par " + keywords.get(synos.get((Object)j)));
+//						ll.set(rangg, synos.get(j));
+//						//Suppression des autres occurences du mot-clé
+//						ll.remove(ll);
+//					}
+//				}
+//			}
+//			System.out.println("Taille finale de keywords : " + keywords.size());
 				
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
