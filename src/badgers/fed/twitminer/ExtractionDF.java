@@ -47,11 +47,7 @@ public class ExtractionDF {
 
 		try {
 			i.readLine();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
-		try {
+			
 			while (true) {
 				// Ligne du fichier courante
 				String motifLineunparsed = i.readLine();
