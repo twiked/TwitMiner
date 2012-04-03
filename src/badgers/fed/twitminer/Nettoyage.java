@@ -28,12 +28,12 @@ public class Nettoyage {
 	}
 
 	public Nettoyage() {
-		dfs = deSerializeDF();
+		dfs = Serializer.deSerializeDF();
 		cleanSynonyms();
 	}
 
 	public void cleanSynonyms() {
-		keywords = (ArrayList<String>) deSerializeKeywords();
+		keywords = (ArrayList<String>) Serializer.deSerializeKeywords();
 		try {
 			BufferedReader is = new BufferedReader(new InputStreamReader(
 					new FileInputStream(new File("./trends.syno")), "UTF-8"));
@@ -117,54 +117,5 @@ public class Nettoyage {
 			e.printStackTrace();
 		}
 
-	}
-
-	@SuppressWarnings("unchecked")
-	HashMap<Motif, Motif> deSerializeDF() {
-		try {
-			ObjectInputStream DFSave = new ObjectInputStream(
-					new BufferedInputStream(new FileInputStream(new File(
-							"./DFserialized"))));
-			HashMap<Motif, Motif> h = (HashMap<Motif, Motif>) DFSave
-					.readObject();
-			DFSave.close();
-			return h;
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
-	@SuppressWarnings("unchecked")
-	List<String> deSerializeKeywords() {
-		try {
-			ObjectInputStream keywordsSave = new ObjectInputStream(
-					new BufferedInputStream(new FileInputStream(new File(
-							"./keywordsmap"))));
-			List<String> l = (List<String>) keywordsSave.readObject();
-			keywordsSave.close();
-			System.out.println("Taille initiale de keywords : " + l.size());
-			return l;
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
 	}
 }

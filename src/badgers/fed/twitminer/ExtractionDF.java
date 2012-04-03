@@ -110,9 +110,9 @@ public class ExtractionDF {
 					--bi;
 				}
 			}
-			serializeDFMap();
+			Serializer.serializeDFMap(globale);
 			
-			List<String> keyWords = deSerializeKeywords();
+			List<String> keyWords = Serializer.deSerializeKeywords();
 			for (Motif x : globale.keySet()) {
 				Motif z = globale.get(x);
 				o.write(x.toString(keyWords) + " -implique- " + z.toString(keyWords) + "; ("
@@ -124,42 +124,4 @@ public class ExtractionDF {
 			e.printStackTrace();
 		}
 	}
-
-	@SuppressWarnings("unchecked")
-	List<String> deSerializeKeywords() {
-		try {
-			ObjectInputStream keywordsSave = new ObjectInputStream(
-					new BufferedInputStream(new FileInputStream(new File(
-							"./keywordsmap"))));
-			List<String> l = (List<String>) keywordsSave.readObject();
-			keywordsSave.close();
-			return l;
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private void serializeDFMap() {
-		ObjectOutputStream DFs;
-		try {
-			DFs = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File("./DFserialized"))));
-			DFs.writeObject(globale);
-			DFs.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-
 }

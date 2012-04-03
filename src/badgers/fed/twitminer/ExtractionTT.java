@@ -58,7 +58,7 @@ public class ExtractionTT {
 				} while(!Arrays.equals(newline, buf));
 				o.write('\n');
 			}
-			serializeKeywords();
+			Serializer.serializeKeywords(keywords);
 			o.close();
 	//		Runtime r = new Runtime();
 	//		r.exec("./apriori ");
@@ -83,16 +83,5 @@ public class ExtractionTT {
 			keywords.add(TT);
 		return rank;
 			
-	}
-	private static void serializeKeywords()
-	{
-		try {
-			ObjectOutputStream keywordsSave = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File("./keywordsmap"))));
-			keywordsSave.writeObject(keywords);
-			System.out.println(keywords.size());
-			keywordsSave.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 }
