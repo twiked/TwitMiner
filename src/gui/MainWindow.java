@@ -13,5 +13,6 @@ public class MainWindow extends JFrame{
 		this.getContentPane().add(new MainPanel());
 		this.pack();
 		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
