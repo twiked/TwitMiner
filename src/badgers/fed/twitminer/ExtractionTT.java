@@ -1,6 +1,5 @@
 package badgers.fed.twitminer;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,15 +8,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ExtractionTT {
-	/**
-	 * @param args
-	 */
+	
 	static ArrayList<String> keywords = new ArrayList<String>();
 	public static void main(String[] args) {
 		char[] semicolon = new String(";").toCharArray();

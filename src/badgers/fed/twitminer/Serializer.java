@@ -10,13 +10,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import badgers.fed.twitminer.model.Motif;
 
 public class Serializer {
-	
+
 	static public void serializeKeywords(ArrayList<String> keywords)
 	{
 		try {

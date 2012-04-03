@@ -1,7 +1,5 @@
 package badgers.fed.twitminer;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,11 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import badgers.fed.twitminer.model.Motif;
@@ -110,13 +105,6 @@ public class ExtractionDF {
 			}
 			Serializer.serializeDFMap(globale);
 			
-			List<String> keyWords = Serializer.deSerializeKeywords();
-//			for (List<Motif> l : globale) {
-//				Motif x = l.get(0);
-//				Motif z = l.get(1);
-//				o.write(x.toString(keyWords) + " -implique- " + z.toString(keyWords) + "; ("
-//						+ z.getFreq() / x.getFreq() + ")\n");
-//			}
 			o.close();
 
 		} catch (IOException e) {

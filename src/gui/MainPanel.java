@@ -2,20 +2,21 @@ package gui;
 
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import badgers.fed.twitminer.Serializer;
 import badgers.fed.twitminer.model.Motif;
 
 public class MainPanel extends JTabbedPane{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JTable table = null;
 	List<String> keywords = Serializer.deSerializeKeywords();
 	public MainPanel() {
@@ -34,26 +35,6 @@ public class MainPanel extends JTabbedPane{
 		
 		JPanel tab1 = new JPanel();
 		
-		JPanel tab2 = new JPanel();
-		
-		JTextField txtFld = new JTextField(10);
-		txtFld.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				JTextField txtFld = (JTextField) arg0.getSource();
-				try
-				{
-					String Str = txtFld.getText();
-					//table.changeSelection(rowIndex, columnIndex, toggle, extend)
-				}
-				catch (NullPointerException e) {
-				}
-				
-			}
-			}
-		);
-		
 		tab1.setLayout(new BorderLayout());
 		
 		table = new JTable(data, title);
@@ -63,7 +44,5 @@ public class MainPanel extends JTabbedPane{
 		tab1.add(jsp, BorderLayout.CENTER);
 		
 		this.addTab("Affichage Résultats", tab1);
-		this.add(jsp);
-//		this.add(new JButton());
 	}
 }

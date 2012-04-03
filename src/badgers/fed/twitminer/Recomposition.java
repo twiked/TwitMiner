@@ -61,6 +61,7 @@ public class Recomposition {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private static void deserializeKeywords()
 	{
 		try {
@@ -69,13 +70,10 @@ public class Recomposition {
 			System.out.println(keywords.size());
 			keywordsRead.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
