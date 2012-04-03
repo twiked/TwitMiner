@@ -30,6 +30,8 @@ public class Nettoyage {
 	public Nettoyage() {
 		dfs = Serializer.deSerializeDF();
 		cleanSynonyms();
+		cleanNonMax();
+		cleanNonMin();
 	}
 
 	public void cleanSynonyms() {
@@ -81,31 +83,13 @@ public class Nettoyage {
 						lm.get(0).remove((Object)i);
 					}
 					
-					Motif n = lm.get(2);
+					Motif n = lm.get(1);
 					int rangg = n.indexOf(i);
 					if(rangg != -1)
 						n.set(rangg, synos.get(i));
 				}
 			}
-					
-//				//Nettoyage des motifs impliqués (Y-X)
-//				
-//				List<Integer> ll = dfs.get(m).getMotif();
-//				//Pour chaque mot-clé à remplacer potentiellement
-//				for(int j : synos.keySet()) {
-//					int rangg = ll.indexOf(j);
-//					
-//					if(rangg != -1) {
-//						//Le mot clé doit être remplacé
-//						System.out.println(keywords.get(rangg) + " remplacé par " + keywords.get(synos.get((Object)j)));
-//						ll.set(rangg, synos.get(j));
-//						//Suppression des autres occurences du mot-clé
-//						ll.remove(ll);
-//					}
-//				}
-//			}
-//			System.out.println("Taille finale de keywords : " + keywords.size());
-				
+
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -117,5 +101,31 @@ public class Nettoyage {
 			e.printStackTrace();
 		}
 
+	}
+	public void cleanNonMax() {
+		List<List<Motif>> dfscopy = new ArrayList<List<Motif>>(dfs);
+		for(List<Motif> df : dfs)
+			//Chaque df
+			for(List<Motif> otherdf : dfs)
+				//Cherche une autre DF avec le même X
+				if(df.get(0).equals(otherdf.get(0)))
+					if(df.get(1).containsAll(otherdf.get(1)))
+						if(!df.equals(otherdf))
+							dfscopy.remove(otherdf);
+		System.out.println(dfs.size());
+		System.out.println(dfscopy.size());
+	}
+	
+	public void cleanNonMin() {
+		List<List<Motif>> dfscopy = new ArrayList<List<Motif>>(dfs);
+		for(List<Motif> df : dfs)
+			//Chaque df
+			for(List<Motif> otherdf : dfs)
+				//Cherche une autre DF avec le même Y
+				if(df.get(1).equals(otherdf.get(1)))
+					if(!df.equals(otherdf))
+						dfscopy.remove(df);
+		System.out.println(dfs.size());
+		System.out.println(dfscopy.size());
 	}
 }
