@@ -20,7 +20,7 @@ import java.util.List;
 import badgers.fed.twitminer.model.Motif;
 
 public class ExtractionDF {
-	private HashMap<Motif, Motif> globale;
+	private ArrayList<List<Motif>> globale;
 	private List<Motif> glob;
 	BufferedWriter o;
 	BufferedReader i;
@@ -43,7 +43,7 @@ public class ExtractionDF {
 
 		// Hashmap contenant toutes les transactions, associées à leur fréquence
 		glob = new ArrayList<Motif>();
-		globale = new HashMap<Motif, Motif>();
+		globale = new ArrayList<List<Motif>>();
 
 		try {
 			i.readLine();
@@ -99,8 +99,10 @@ public class ExtractionDF {
 							// fréquence de z est donc la fréquence de y.
 							Motif z = new Motif(y);
 							z.removeAll(x);
-
-							globale.put(x, z);
+							List<Motif> al = new ArrayList<Motif>();
+							al.add(x);
+							al.add(z);
+							globale.add(al);
 						}
 					}
 					--bi;
@@ -109,11 +111,12 @@ public class ExtractionDF {
 			Serializer.serializeDFMap(globale);
 			
 			List<String> keyWords = Serializer.deSerializeKeywords();
-			for (Motif x : globale.keySet()) {
-				Motif z = globale.get(x);
-				o.write(x.toString(keyWords) + " -implique- " + z.toString(keyWords) + "; ("
-						+ z.getFreq() / x.getFreq() + ")\n");
-			}
+//			for (List<Motif> l : globale) {
+//				Motif x = l.get(0);
+//				Motif z = l.get(1);
+//				o.write(x.toString(keyWords) + " -implique- " + z.toString(keyWords) + "; ("
+//						+ z.getFreq() / x.getFreq() + ")\n");
+//			}
 			o.close();
 
 		} catch (IOException e) {

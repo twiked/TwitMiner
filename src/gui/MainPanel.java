@@ -1,43 +1,34 @@
 package gui;
 
+
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-
 import badgers.fed.twitminer.Serializer;
 import badgers.fed.twitminer.model.Motif;
 
 public class MainPanel extends JTabbedPane{
 	
 	JTable table = null;
+	List<String> keywords = Serializer.deSerializeKeywords();
 	public MainPanel() {
-		HashMap<Motif, Motif> dfs = Serializer.deSerializeDF();
+		List<List<Motif>> dfs = Serializer.deSerializeDF();
 		String title[] = {"Motif impliquant", "Support", "Motif impliqué", "Support", "Confiance"};
 		Object[][] data = new Object[dfs.size()][5];
-		Set<Motif> implicateurs =  dfs.keySet();
-		Iterator<Motif> it = implicateurs.iterator();
 		int i = 0;
-		while(it.hasNext()) {
-			Motif m = it.next();
-			data[i][0] = m.toString();
-			data[i][1] = m.getFreq();
-			data[i][2] = dfs.get(m).toString();
-			data[i][3] = dfs.get(m).getFreq();
-			data[i][4] = String.valueOf(dfs.get(m).getFreq()/m.getFreq());
+		for(List<Motif> m : dfs) {
+			data[i][0] = m.get(0).toString(keywords);
+			data[i][1] = m.get(0).getFreq();
+			data[i][2] = m.get(1).toString(keywords);
+			data[i][3] = m.get(1).getFreq();
+			data[i][4] = String.valueOf(m.get(1).getFreq()/m.get(0).getFreq());
 			++i;
 		}
 		
@@ -54,6 +45,7 @@ public class MainPanel extends JTabbedPane{
 				try
 				{
 					String Str = txtFld.getText();
+					//table.changeSelection(rowIndex, columnIndex, toggle, extend)
 				}
 				catch (NullPointerException e) {
 				}
@@ -71,5 +63,7 @@ public class MainPanel extends JTabbedPane{
 		tab1.add(jsp, BorderLayout.CENTER);
 		
 		this.addTab("Affichage Résultats", tab1);
+		this.add(jsp);
+//		this.add(new JButton());
 	}
 }

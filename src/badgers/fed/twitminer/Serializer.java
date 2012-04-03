@@ -53,11 +53,11 @@ public class Serializer {
 		}
 	}
 	
-	static public void serializeDFMap(HashMap<Motif, Motif> dfs) {
+	static public void serializeDFMap(List<List<Motif>> globale2) {
 		ObjectOutputStream DFs;
 		try {
 			DFs = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File("./DFserialized"))));
-			DFs.writeObject(dfs);
+			DFs.writeObject(globale2);
 			DFs.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -67,12 +67,12 @@ public class Serializer {
 	}
 	
 	@SuppressWarnings("unchecked")
-	static public HashMap<Motif, Motif> deSerializeDF() {
+	static public List<List<Motif>> deSerializeDF() {
 		try {
 			ObjectInputStream DFSave = new ObjectInputStream(
 					new BufferedInputStream(new FileInputStream(new File(
 							"./DFserialized"))));
-			HashMap<Motif, Motif> h = (HashMap<Motif, Motif>) DFSave
+			List<List<Motif>> h = (List<List<Motif>>) DFSave
 					.readObject();
 			DFSave.close();
 			return h;
