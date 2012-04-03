@@ -37,7 +37,7 @@ public class Nettoyage {
 		keywords = (ArrayList<String>) Serializer.deSerializeKeywords();
 		try {
 			BufferedReader is = new BufferedReader(new InputStreamReader(
-					new FileInputStream(new File("./trends.syno")), "UTF-8"));
+					new FileInputStream(new File("./data/trends.syno")), "UTF-8"));
 			dic = new HashMap<String, String>();
 			String currLine = new String();
 			currLine = is.readLine();

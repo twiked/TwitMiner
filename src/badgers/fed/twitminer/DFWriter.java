@@ -29,7 +29,7 @@ public class DFWriter {
 	public DFWriter() {
 		try {
 			o = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-					new File("./dfs_human_readable"))));
+					new File("./data/dfs_human_readable"))));
 			List<String> keywords = Serializer.deSerializeKeywords();
 			dfs = Serializer.deSerializeDF();
 			for (List<Motif> m : dfs) {

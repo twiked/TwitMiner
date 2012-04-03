@@ -17,7 +17,7 @@ public class App {
 		//À décommenter pour effectuer les "phases" du projet
 		try {
 			new ExtractionTT();
-			Process p = Runtime.getRuntime().exec("./apriori ./trans " + String.valueOf(seuilSupport) + "./resultat");
+			Process p = Runtime.getRuntime().exec("./apriori ./data/trans " + String.valueOf(seuilSupport) + "./data/resultat");
 			p.waitFor();
 			new ExtractionDF(seuilConfiance);
 			new DFWriter();

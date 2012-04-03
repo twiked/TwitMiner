@@ -31,7 +31,7 @@ public class ExtractionDF {
 		try {
 			this.minConf = seuil;
 			i = new BufferedReader(new InputStreamReader(new FileInputStream(
-					new File("./resultat"))));
+					new File("./data/resultat"))));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

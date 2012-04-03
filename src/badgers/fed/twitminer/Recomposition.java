@@ -31,9 +31,9 @@ public class Recomposition {
 		String item = new String();
 		try {
 			BufferedReader i = new BufferedReader(new InputStreamReader(
-					new FileInputStream(new File("./resultat"))));
+					new FileInputStream(new File("./dataresultat"))));
 			BufferedWriter os = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream(new File("assoc"))));
+					new FileOutputStream(new File("./data/assoc"))));
 			char[] buf = new char[1];
 			while (i.read(buf) != -1 && buf[0] != '\n')
 				;

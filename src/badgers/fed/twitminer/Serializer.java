@@ -26,7 +26,7 @@ public class Serializer {
 		try {
 			ObjectOutputStream keywordsSave = new ObjectOutputStream(
 					new BufferedOutputStream(new FileOutputStream(new File(
-							"./keywordsmap"))));
+							"./data/keywordsmap"))));
 			keywordsSave.writeObject(keywords);
 			keywordsSave.close();
 		} catch (IOException e) {
@@ -44,7 +44,7 @@ public class Serializer {
 		try {
 			ObjectInputStream keywordsSave = new ObjectInputStream(
 					new BufferedInputStream(new FileInputStream(new File(
-							"./keywordsmap"))));
+							"./data/keywordsmap"))));
 			List<String> l = (List<String>) keywordsSave.readObject();
 			keywordsSave.close();
 			return l;
@@ -70,7 +70,7 @@ public class Serializer {
 		ObjectOutputStream DFs;
 		try {
 			DFs = new ObjectOutputStream(new BufferedOutputStream(
-					new FileOutputStream(new File("./DFserialized"))));
+					new FileOutputStream(new File("./data/DFserialized"))));
 			DFs.writeObject(globale2);
 			DFs.close();
 		} catch (IOException e) {
@@ -89,7 +89,7 @@ public class Serializer {
 		try {
 			ObjectInputStream DFSave = new ObjectInputStream(
 					new BufferedInputStream(new FileInputStream(new File(
-							"./DFserialized"))));
+							"./data/DFserialized"))));
 			List<List<Motif>> h = (List<List<Motif>>) DFSave.readObject();
 			DFSave.close();
 			return h;

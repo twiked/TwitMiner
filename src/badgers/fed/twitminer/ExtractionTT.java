@@ -26,9 +26,9 @@ public class ExtractionTT {
 
 		try {
 			BufferedReader i = new BufferedReader(new InputStreamReader(
-					new FileInputStream(new File("./bon2_ss_suede.csv")), "UTF-8"));
+					new FileInputStream(new File("./data/bon2_ss_suede.csv")), "UTF-8"));
 			BufferedWriter o = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream(new File("trans"))));
+					new FileOutputStream(new File("./data/trans"))));
 
 			char[] buf = new char[1];
 			int count = 0;
