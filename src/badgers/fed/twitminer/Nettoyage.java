@@ -16,7 +16,7 @@ import java.util.List;
 import badgers.fed.twitminer.model.Motif;
 
 public class Nettoyage {
-	HashMap<Motif, Motif> dfs;
+	List<List<Motif>> dfs;
 	
 	//Dictionnaire à remplir
 	HashMap<String, String> dic;
@@ -66,22 +66,22 @@ public class Nettoyage {
 			//Remplacement effectif des synonymes
 			
 			//Pour chaque DF
-			for(Motif m : dfs.keySet()) {
+			for(List<Motif> lm : dfs) {
 				//Nettoyage des motifs implicateurs (X)
 				
 				//List<Integer> l = m.getMotif();
 				//Pour chaque mot-clé à remplacer potentiellement
 				for(int i : synos.keySet()) {
-					int rang = m.indexOf(i);
+					int rang = lm.get(0).indexOf(i);
 					//Le mot clé doit être remplacé					
 					if(rang != -1) {
 						System.out.println(keywords.get(i) + " remplacé par " + keywords.get(synos.get((Object)i)));
-						m.set(rang, synos.get(i));
+						lm.get(0).set(rang, synos.get(i));
 						//Suppression des autres occurences du mot-clé
-						m.remove((Object)i);
+						lm.get(0).remove((Object)i);
 					}
 					
-					Motif n = dfs.get(m);
+					Motif n = lm.get(2);
 					int rangg = n.indexOf(i);
 					if(rangg != -1)
 						n.set(rangg, synos.get(i));
