@@ -5,10 +5,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +23,13 @@ public class ExtractionDF {
 		new ExtractionDF(0.6);
 	}
 
+	/**
+	 * @param Threshold
+	 *            of trust in functional dependencies
+	 */
 	public ExtractionDF(double seuil) {
 		try {
 			this.minConf = seuil;
-			o = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-					new File("./dfs"))));
 			i = new BufferedReader(new InputStreamReader(new FileInputStream(
 					new File("./resultat"))));
 		} catch (FileNotFoundException e) {
@@ -42,7 +42,7 @@ public class ExtractionDF {
 
 		try {
 			i.readLine();
-			
+
 			while (true) {
 				// Ligne du fichier courante
 				String motifLineunparsed = i.readLine();
@@ -73,12 +73,11 @@ public class ExtractionDF {
 			i.close();
 
 			final int globSize = glob.size();
-			System.out.println(globSize);
 			// Pour chaque motif Y fréquent
 			for (int ai = globSize - 1; ai >= 0; --ai) {
 
 				Motif y = new Motif(glob.get(ai));
-				int bi = ai - 10;
+				int bi = ai - 1;
 
 				// Rechercher un sous-ensemble X
 				while (bi >= 0) {
@@ -88,8 +87,6 @@ public class ExtractionDF {
 					// Tel que X c Y
 					if (y.containsAll(x)) {
 						if (y.getFreq() / x.getFreq() >= minConf) {
-							// System.out.println(y.toString() + "#" +
-							// x.toString());
 							// Z = Y - X (motif impliqué), attention la
 							// fréquence de z est donc la fréquence de y.
 							Motif z = new Motif(y);
@@ -103,9 +100,7 @@ public class ExtractionDF {
 					--bi;
 				}
 			}
-			Serializer.serializeDFMap(globale);
-			
-			o.close();
+			Serializer.serializeDF(globale);
 
 		} catch (IOException e) {
 			e.printStackTrace();

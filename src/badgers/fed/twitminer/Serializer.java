@@ -16,18 +16,29 @@ import badgers.fed.twitminer.model.Motif;
 
 public class Serializer {
 
-	static public void serializeKeywords(ArrayList<String> keywords)
-	{
+	/**
+	 * Serialize the given keywords dictionary to a hard-coded file
+	 * 
+	 * 
+	 * @param keywords
+	 */
+	static public void serializeKeywords(ArrayList<String> keywords) {
 		try {
-			ObjectOutputStream keywordsSave = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File("./keywordsmap"))));
+			ObjectOutputStream keywordsSave = new ObjectOutputStream(
+					new BufferedOutputStream(new FileOutputStream(new File(
+							"./keywordsmap"))));
 			keywordsSave.writeObject(keywords);
-			System.out.println(keywords.size());
 			keywordsSave.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Bring back the dictionnary of keywords from the hard-coded file
+	 * 
+	 * @return the dictionnary of keywords
+	 */
 	@SuppressWarnings("unchecked")
 	static public List<String> deSerializeKeywords() {
 		try {
@@ -38,56 +49,59 @@ public class Serializer {
 			keywordsSave.close();
 			return l;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
-	static public void serializeDFMap(List<List<Motif>> globale2) {
+
+	/**
+	 * Serialize the given list of functional dependencies
+	 * 
+	 * @param List of functional dependencies to be serialized
+	 *            
+	 */
+	static public void serializeDF(List<List<Motif>> globale2) {
 		ObjectOutputStream DFs;
 		try {
-			DFs = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File("./DFserialized"))));
+			DFs = new ObjectOutputStream(new BufferedOutputStream(
+					new FileOutputStream(new File("./DFserialized"))));
 			DFs.writeObject(globale2);
 			DFs.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
+	/**
+	 * Bring back the functional dependencies from the hard-coded file
+	 * 
+	 * @return List of functional dependencies
+	 */
 	@SuppressWarnings("unchecked")
 	static public List<List<Motif>> deSerializeDF() {
 		try {
 			ObjectInputStream DFSave = new ObjectInputStream(
 					new BufferedInputStream(new FileInputStream(new File(
 							"./DFserialized"))));
-			List<List<Motif>> h = (List<List<Motif>>) DFSave
-					.readObject();
+			List<List<Motif>> h = (List<List<Motif>>) DFSave.readObject();
 			DFSave.close();
 			return h;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
 	}
 }
-
