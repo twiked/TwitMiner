@@ -26,10 +26,10 @@ public class MainPanel extends JTabbedPane{
 		int i = 0;
 		for(List<Motif> m : dfs) {
 			data[i][0] = m.get(0).toString(keywords);
-			data[i][1] = m.get(0).getFreq();
+			data[i][1] = m.get(0).getSupport();
 			data[i][2] = m.get(1).toString(keywords);
-			data[i][3] = m.get(1).getFreq();
-			data[i][4] = String.valueOf(m.get(1).getFreq()/m.get(0).getFreq());
+			data[i][3] = m.get(1).getSupport();
+			data[i][4] = String.valueOf(m.get(1).getSupport()/m.get(0).getSupport());
 			++i;
 		}
 		

@@ -86,7 +86,7 @@ public class ExtractionDF {
 
 					// Tel que X c Y
 					if (y.containsAll(x)) {
-						if (y.getFreq() / x.getFreq() >= minConf) {
+						if (y.getSupport() / x.getSupport() >= minConf) {
 							// Z = Y - X (motif impliqué), attention la
 							// fréquence de z est donc la fréquence de y.
 							Motif z = new Motif(y);

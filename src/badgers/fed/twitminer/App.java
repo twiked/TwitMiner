@@ -13,11 +13,10 @@ public class App {
 			seuilConfiance = Double.valueOf(args[2]);
 		}
 			
-		
 		//À décommenter pour effectuer les "phases" du projet
 		try {
-			new ExtractionTT();
-			Process p = Runtime.getRuntime().exec("./apriori ./data/trans " + String.valueOf(seuilSupport) + "./data/resultat");
+//			new ExtractionTT();
+			Process p = Runtime.getRuntime().exec("./apriori ./data/trans " + String.valueOf(seuilSupport) + " ./data/resultat");
 			p.waitFor();
 			new ExtractionDF(seuilConfiance);
 			new DFWriter();

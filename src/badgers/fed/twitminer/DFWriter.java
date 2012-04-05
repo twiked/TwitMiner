@@ -34,10 +34,10 @@ public class DFWriter {
 			dfs = Serializer.deSerializeDF();
 			for (List<Motif> m : dfs) {
 				String s = m.get(0).toString(keywords) + "("
-						+ m.get(0).getFreq() + ")" + " Implique "
-						+ m.get(0).toString(keywords) + '('
-						+ m.get(1).getFreq() + ')' + " Confiance : "
-						+ m.get(1).getFreq() / m.get(0).getFreq() + '\n';
+						+ m.get(0).getSupport() + ")" + "### Implique ###"
+						+ m.get(1).toString(keywords) + '('
+						+ m.get(1).getSupport() + ')' + " Confiance : "
+						+ m.get(1).getSupport() / m.get(0).getSupport() + '\n';
 				o.write(s);
 			}
 			o.close();

@@ -14,23 +14,23 @@ public class Motif implements List<Integer>, Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private List<Integer> motif;
-	private float freq;
+	private float support;
 	
 	public Motif(int freq)
 	{
-		this.setFreq(freq);
+		this.setSupport(freq);
 		this.setMotif(new ArrayList<Integer>());
 	}
 	
 	public Motif(Motif b) {
-		this.freq = b.getFreq();
+		this.support = b.getSupport();
 		this.motif = new ArrayList<Integer>();
 		this.motif.addAll(b.getMotif());
 	}
 
 	@Override
 	public String toString() {
-		return "Motif [motif=" + motif + ", freq=" + freq + "]";
+		return "Motif [motif=" + motif + ", freq=" + support + "]";
 	}
 	public String toString(List<String> l) {
 		String motifLine = new String();
@@ -45,11 +45,11 @@ public class Motif implements List<Integer>, Serializable{
 	public void setMotif(List<Integer> motif) {
 		this.motif = motif;
 	}
-	public float getFreq() {
-		return freq;
+	public float getSupport() {
+		return support;
 	}
-	public void setFreq(float freq) {
-		this.freq = freq;
+	public void setSupport(float support) {
+		this.support = support;
 	}
 	public void addItem(int item) {
 		this.motif.add(item);
@@ -123,7 +123,7 @@ public class Motif implements List<Integer>, Serializable{
 	@Override
 	public void clear() {
 		motif.clear();
-		freq = 0;
+		support = 0;
 	}
 
 	@Override
@@ -176,7 +176,7 @@ public class Motif implements List<Integer>, Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + Float.floatToIntBits(freq);
+		result = prime * result + Float.floatToIntBits(support);
 		return result;
 	}
 
